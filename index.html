@@ -211,6 +211,17 @@ body {
 }
 .project-summary-links { display: flex; gap: 10px; margin-left: auto; }
 
+/* ---- Section Sub Divider ---- */
+.work-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 36px 0 24px;
+}
+.work-divider .label {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--accent); white-space: nowrap;
+}
+.work-divider .line { flex: 1; height: 1px; background: var(--border); }
+
 /* ---- Internship ---- */
 .internship-card {
   background: var(--surface); border: 1px solid var(--border);
@@ -399,8 +410,7 @@ body {
     <div class="nav-brand">马俊</div>
     <ul class="nav-links">
       <li><a href="#about">关于我</a></li>
-      <li><a href="#projects">项目经历</a></li>
-      <li><a href="#internship">实习经历</a></li>
+      <li><a href="#projects">精选项目</a></li>
       <li><a href="#skills">职业技能</a></li>
     </ul>
   </div>
@@ -514,13 +524,11 @@ body {
       </div>
     </div>
 
-  </div>
-</section>
-
-<section class="section reveal" id="internship">
-  <div class="container">
-    <div class="section-label">实习经历</div>
-    <h2 class="section-title">工作经历</h2>
+    <!-- 工作经历：融入精选项目 -->
+    <div class="work-divider">
+      <span class="label">工作经历</span>
+      <span class="line"></span>
+    </div>
 
     <div class="internship-card">
       <div class="internship-header">
