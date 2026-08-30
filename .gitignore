@@ -1,0 +1,11 @@
+# WorkBuddy 内部数据（记忆 / 备份等），不纳入版本管理
+.workbuddy/
+
+# 系统垃圾文件
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# 临时文件
+*.tmp
+*.log

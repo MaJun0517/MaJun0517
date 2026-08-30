@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>马俊 · 个人简历</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #fafbfc;
+  --surface: #ffffff;
+  --fg:      #1a1a2e;
+  --muted:   #6b7280;
+  --border:  #e5e7eb;
+  --accent:  #2563eb;
+  --accent-light: #dbeafe;
+  --accent-subtle: #eff6ff;
+  --radius: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.10);
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Nav ---- */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; height: 56px;
+}
+.nav-brand {
+  font-size: 18px; font-weight: 700; letter-spacing: -0.01em;
+}
+.nav-links {
+  display: flex; gap: 28px; list-style: none;
+}
+.nav-links a {
+  color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500;
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--fg); }
+.nav-links a.active { color: var(--accent); }
+
+/* ---- Container ---- */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ---- Hero ---- */
+.hero {
+  padding: 48px 0 36px;
+}
+.hero-inner {
+  display: flex; align-items: center; gap: 48px;
+}
+.hero-text { flex: 1; }
+.hero-badge {
+  display: inline-block; padding: 4px 14px; background: var(--accent-subtle);
+  color: var(--accent); border-radius: 20px; font-size: 13px; font-weight: 600;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: 48px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.hero h1 span { color: var(--accent); }
+.hero-subtitle {
+  font-size: 18px; color: var(--muted); margin-bottom: 24px; line-height: 1.6;
+}
+.hero-contact {
+  display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: var(--muted);
+  margin-bottom: 20px;
+}
+.hero-contact span {
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-avatar {
+  width: 140px; height: 180px; border-radius: 16px; object-fit: cover;
+  background: #e5e7eb; flex-shrink: 0; box-shadow: var(--shadow-lg);
+}
+
+/* ---- Button ---- */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px; background: var(--accent); color: #fff;
+  border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;
+  transition: opacity var(--transition); cursor: pointer; border: none; font-family: inherit;
+}
+.btn-primary:hover { opacity: 0.88; }
+
+/* ---- Section ---- */
+.section { padding: 40px 0; }
+.section-label {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--accent); margin-bottom: 6px;
+}
+.section-title {
+  font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px;
+}
+
+/* ---- About Me ---- */
+.about-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px; max-width: 780px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.about-quote {
+  font-size: 48px; line-height: 1; color: var(--accent-light); flex-shrink: 0;
+  font-family: Georgia, serif; margin-top: -4px;
+}
+.about-body { font-size: 15px; line-height: 1.9; color: #374151; }
+.about-body strong { color: var(--fg); }
+
+/* ---- Project Cards ---- */
+.project-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 24px;
+}
+.project-card {
+  background: var(--surface); border-radius: var(--radius);
+  border: 1px solid var(--border); padding: 32px;
+  transition: box-shadow var(--transition), transform var(--transition);
+  cursor: default;
+}
+.project-card:hover {
+  box-shadow: var(--shadow-lg); transform: translateY(-2px);
+}
+.project-card-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.project-icon {
+  width: 44px; height: 44px; border-radius: 12px; display: flex;
+  align-items: center; justify-content: center; font-size: 22px;
+}
+.project-icon.hot { background: #fef2f2; }
+.project-icon.research { background: #eff6ff; }
+.project-card h3 {
+  font-size: 20px; font-weight: 700; letter-spacing: -0.01em;
+}
+.project-meta {
+  font-size: 13px; color: var(--muted); margin-top: 2px;
+}
+.project-meta .dot { margin: 0 6px; }
+.project-highlights {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+}
+.project-highlight {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 12px; color: #059669; background: #ecfdf5;
+  padding: 2px 10px; border-radius: 6px; font-weight: 500;
+}
+.project-desc {
+  font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px;
+}
+.project-tech {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;
+}
+.project-tech span {
+  padding: 3px 10px; font-size: 12px; font-weight: 500;
+  background: #f3f4f6; border-radius: 6px; color: #374151;
+}
+.project-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 20px; background: var(--fg); color: #fff;
+  border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;
+  transition: opacity var(--transition);
+}
+.project-link:hover { opacity: 0.85; }
+.project-link-outline {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 20px; background: transparent; color: var(--fg);
+  border: 1.5px solid var(--border); border-radius: 8px;
+  text-decoration: none; font-size: 14px; font-weight: 600;
+  margin-left: 10px;
+  transition: border-color var(--transition), background var(--transition);
+}
+.project-link-outline:hover { border-color: var(--fg); background: #f9fafb; }
+
+/* ---- Project Summary Block (外置摘要) ---- */
+.project-summary-block {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px;
+  margin-bottom: 20px;
+  transition: box-shadow var(--transition);
+}
+.project-summary-block:hover { box-shadow: var(--shadow-md); }
+.project-summary-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+.project-summary-header h3 {
+  font-size: 20px; font-weight: 700; letter-spacing: -0.01em;
+}
+.project-summary-desc {
+  font-size: 14px; color: var(--muted); line-height: 1.75;
+  margin-bottom: 16px;
+}
+.project-summary-footer {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+}
+.project-summary-links { display: flex; gap: 10px; margin-left: auto; }
+
+/* ---- Internship ---- */
+.internship-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px; max-width: none;
+  margin-bottom: 20px;
+}
+.intern-project {
+  background: #f9fafb; border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 24px; margin-top: 14px;
+}
+.intern-project-head {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
+}
+.intern-project-head h4 { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+.intern-project-links { display: flex; gap: 14px; flex-wrap: wrap; }
+.intern-project-links a {
+  font-size: 12px; color: var(--accent); text-decoration: none; font-weight: 600;
+  transition: opacity var(--transition);
+}
+.intern-project-links a:hover { text-decoration: underline; }
+.intern-project > p { font-size: 13.5px; color: #374151; line-height: 1.75; margin-bottom: 10px; }
+.intern-project ul { padding-left: 20px; }
+.intern-project ul li {
+  font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-bottom: 6px;
+}
+.intern-project ul li strong { color: var(--fg); }
+.intern-project ul li strong.res { color: #059669; }
+.internship-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
+}
+.internship-header h3 { font-size: 20px; font-weight: 700; }
+.internship-date {
+  font-size: 13px; color: var(--muted); white-space: nowrap;
+  background: #f9fafb; padding: 4px 12px; border-radius: 6px;
+}
+.internship-role { font-size: 15px; color: var(--accent); font-weight: 600; margin-bottom: 16px; }
+.internship-list { padding-left: 20px; }
+.internship-list li {
+  font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 8px;
+}
+
+/* ---- Skills ---- */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;
+}
+.skill-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.skill-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.skill-card h4 {
+  font-size: 14px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tags span {
+  padding: 4px 10px; font-size: 12px; font-weight: 500;
+  background: var(--accent-subtle); color: var(--accent); border-radius: 6px;
+}
+
+/* ---- Cert Card ---- */
+.skill-card-cert { text-align: center; }
+.cert-img {
+  width: 100%; max-width: 280px; border-radius: 8px;
+  border: 1px solid var(--border); margin-bottom: 10px;
+  display: block; margin-left: auto; margin-right: auto;
+}
+.cert-label {
+  font-size: 13px; font-weight: 700; color: var(--fg);
+}
+.cert-sub {
+  font-size: 11px; color: var(--muted); margin-top: 2px;
+}
+
+/* ---- Education ---- */
+.edu-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px; max-width: 740px;
+  display: flex; gap: 24px; align-items: flex-start;
+}
+.edu-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: var(--accent-subtle); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.edu-body h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.edu-major { font-size: 14px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.edu-period { font-size: 13px; color: var(--muted); }
+
+/* ---- Language ---- */
+.lang-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.lang-tag {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  font-size: 13px; font-weight: 500; color: #166534;
+}
+.lang-tag .level { font-size: 11px; color: #6b7280; }
+
+/* ---- Cert ---- */
+.cert-row {
+  display: flex; gap: 16px; flex-wrap: wrap;
+}
+.cert-card {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 20px;
+  transition: box-shadow var(--transition);
+}
+.cert-card:hover { box-shadow: var(--shadow-md); }
+.cert-badge {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: #fefce8; color: #ca8a04;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.cert-info h4 { font-size: 14px; font-weight: 700; }
+.cert-info p { font-size: 12px; color: var(--muted); }
+
+/* ---- Back to Top ---- */
+.back-to-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 90;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--fg); color: #fff; border: none;
+  cursor: pointer; font-size: 20px; display: flex;
+  align-items: center; justify-content: center;
+  box-shadow: var(--shadow-lg);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+.back-to-top.visible {
+  opacity: 1; transform: translateY(0); pointer-events: auto;
+}
+.back-to-top:hover { opacity: 0.85; }
+
+/* ---- Scroll Reveal ---- */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- Footer ---- */
+.footer {
+  border-top: 1px solid var(--border); padding: 32px 0;
+  text-align: center; color: var(--muted); font-size: 13px;
+}
+.footer-links {
+  display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+  margin-top: 8px;
+}
+.footer-links a {
+  color: var(--muted); text-decoration: none; transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--fg); }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .hero-inner { flex-direction: column-reverse; text-align: center; }
+  .hero-contact { justify-content: center; }
+  .hero-actions { justify-content: center; }
+  .hero h1 { font-size: 36px; }
+  .hero-avatar { width: 100px; height: 130px; }
+  .project-grid { grid-template-columns: 1fr; }
+  .project-link-outline { margin-left: 0; margin-top: 10px; }
+  .nav-links { gap: 16px; }
+  .about-card { flex-direction: column; text-align: center; }
+  .internship-card { padding: 24px 18px; }
+  .intern-project { padding: 16px; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 28px; }
+  .section-title { font-size: 24px; }
+  .nav-inner { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">马俊</div>
+    <ul class="nav-links">
+      <li><a href="#about">关于我</a></li>
+      <li><a href="#projects">项目经历</a></li>
+      <li><a href="#internship">实习经历</a></li>
+      <li><a href="#skills">职业技能</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">AI Agent · 全栈开发</div>
+      <h1>你好，我是<span>马俊</span></h1>
+      <p class="hero-subtitle">
+        广东东软学院网络工程专业在读，专注于 AI Agent 与全栈开发。<br>
+        擅长 Python / Vue 全栈与 LangGraph Agent 构建，热爱将 AI 能力产品化落地。
+      </p>
+      <div class="hero-contact">
+        <span>📱 19122375639</span>
+        <span>✉ 743379974@qq.com</span>
+        <span>🔗 github.com/MaJun0517</span>
+      </div>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#projects">查看项目 ↓</a>
+        <a class="project-link-outline" href="https://github.com/MaJun0517" target="_blank" style="margin-left:0;">GitHub 主页 ↗</a>
+      </div>
+    </div>
+    <img class="hero-avatar" src="MaJun.jpg" alt="个人照片" onerror="this.style.background='#dbeafe';this.style.display='flex';this.style.alignItems='center';this.style.justifyContent='center';this.style.fontSize='48px';this.textContent='👤'">
+  </div>
+</header>
+
+<section class="section reveal" id="about">
+  <div class="container">
+    <div class="section-label">关于我</div>
+    <h2 class="section-title">个人简介</h2>
+    <div class="about-card">
+      <div class="about-quote">"</div>
+      <div class="about-body">
+        我是<strong>马俊</strong>，一名专注于<strong>AI 应用落地</strong>的全栈开发者。目前就读于广东东软学院网络工程专业，在<strong>广东海圆圆农业科技有限公司</strong>实习（AI 全栈开发），课余与实习时间全部投入在实际 AI 系统的构建与迭代中。<br><br>
+        <strong>AI 方向：</strong>熟练运用 <strong>LangChain / LangGraph</strong> 进行 LLM 应用编排，具备生产级 Agent 落地经验（StateGraph 多节点工具循环、PostgreSQL checkpoint 会话持久化、interrupt() 写操作审批中断/恢复、安全分级授权、SSE 流式输出）。掌握 <strong>RAG 检索增强生成</strong>与语义检索（pgvector 向量索引 + bge-small-zh 本地嵌入），了解 <strong>MCP 协议</strong>（Model Context Protocol）。具备 <strong>NLP 实战经验</strong>：jieba 中文分词、TF-IDF 关键词提取、词典情感分析（215 词情感词典从 146 词迭代扩展）。<br><br>
+        <strong>工程能力：</strong>以 <strong>Python 生态</strong>（Django DRF / FastAPI）为后端基石，<strong>Vue 3 + TypeScript</strong> 为前端表达，<strong>C# / WPF</strong> 桌面开发覆盖 Win7–Win10 生产环境，辅以 Docker 容器化部署与 GitHub Actions CI/CD。实习期间独立交付<strong>招投标采集分析平台</strong>与<strong>分拣打标签桌面系统</strong>两套生产系统，积累了多链路爬虫治理、硬件接入、570+ 单元测试工程化保障等实战经验。擅长从零构建完整闭环——从数据采集、AI 分析到飞书/Word 多端分发，在每个环节追求工程化的可靠性。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="projects">
+  <div class="container">
+    <div class="section-label">项目经历</div>
+    <h2 class="section-title">精选项目</h2>
+
+    <!-- 项目一：摘要外置 -->
+    <div class="project-summary-block">
+      <div class="project-summary-header">
+        <div class="project-icon hot">📊</div>
+        <div>
+          <h3>多平台热点聚合与 AI 分析平台</h3>
+          <p class="project-meta">2026.06 起 · 独立开发 · 8 源实时聚合 + 对话式 AI 工作台</p>
+        </div>
+      </div>
+      <p class="project-summary-desc">
+        面向内容创作者的热点情报系统，把“盯热榜—翻新闻—找选题—做分析”做成「采集 → 加工 → 分析 → 检索 → 推送」自动化闭环。<strong>多后端采集引擎：</strong>微博 / 百度 / 抖音 / B站四大热榜 + 央视 / 凤凰网 / 联合早报 / 财新四大官方新闻源，采用「后端池 + 链式路由」架构（Playwright / Crawl4AI / RSSHub / AnySearch 等 7 类后端）统一归一化输出，按数据源逐级降级、新增源零改代码；抖音 / 百度等 SPA 页用 Playwright intercept 截获 XHR 天然绕过反爬。<strong>成本递进新闻漏斗：</strong>7 级流水线（采集→硬过滤→去重→借热度→聚类→AI 精筛→入库），前四层纯免费规则（jieba 关键词、Jaccard 聚类、借热度打分），LLM 仅对候选集单次调用，无 API Key 时全链路规则兜底。<strong>对话式 AI 工作台：</strong>基于 LangGraph + DeepSeek 构建生产级 Agent，14 个业务工具 + 风险分级（read / confirm_write），写操作走 interrupt() 审批、fail-closed；token 级 SSE 流式输出、停止生成、中文感知上下文压缩控制成本。<strong>语义检索：</strong>pgvector HNSW 索引 + 本地 bge-small-zh 模型，采集流程自动增量嵌入，支持「找相似选题 / 历史事件复盘」；飞书 Card 2.0 交互卡片推送 + 机器人私聊对话中继。
+      </p>
+      <div class="project-summary-footer">
+        <div class="project-highlights">
+          <div class="project-highlight">🕷️ 8 源 · 7 类采集后端</div>
+          <div class="project-highlight">🧠 LangGraph Agent 工作台</div>
+          <div class="project-highlight">📰 7 级成本递进漏斗</div>
+          <div class="project-highlight">🔍 语义检索 100% 覆盖</div>
+        </div>
+        <div class="project-tech">
+          <span>Vue 3</span><span>Django 6</span><span>DRF</span><span>PostgreSQL 18</span>
+          <span>pgvector</span><span>LangGraph</span><span>DeepSeek</span><span>Playwright</span>
+          <span>Crawl4AI</span><span>RSSHub</span><span>AnySearch</span><span>bge-small-zh</span>
+          <span>飞书 OpenAPI</span>
+        </div>
+        <div class="project-summary-links">
+          <a class="project-link" href="每日热点平台-单文件版.html">查看演示 →</a>
+          <a class="project-link-outline" href="多平台热点聚合与 AI 分析平台/项目说明.md">项目说明 ↗</a>
+          <a class="project-link-outline" href="多平台热点聚合与 AI 分析平台/架构图.jpg">架构图 ↗</a>
+          <a class="project-link-outline" href="https://github.com/MaJun0517/hot-topics" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 项目二：摘要外置 -->
+    <div class="project-summary-block">
+      <div class="project-summary-header">
+        <div class="project-icon research">🏢</div>
+        <div>
+          <h3>Company Research</h3>
+          <p class="project-meta">2026.08<span class="dot">·</span>独立开发<span class="dot">·</span>5~10 分钟生成报告</p>
+        </div>
+      </div>
+      <p class="project-summary-desc">
+        企业/行业调研报告自动生成底座。<code>collect/</code> 包 13 个单职责模块搭建 4 阶段流水线：<strong>章节级并行搜索</strong>（anysearch <code>batch_search</code> 主 + firecrawl 兜底）→ <strong>多源降级深抓</strong>（crawl4ai <code>/crawl</code> 批量主 + firecrawl/anysearch 兜底 + markitdown PDF 本地主）→ <strong>结构化抽取</strong>（firecrawl json schema + crawl4ai <code>/llm</code> 本地 DeepSeek 切换）→ <strong>双产物组装</strong>（<code>facts.md</code> 兼容旧版 + <code>facts.json</code> 附 stats/timing）。报告生成完全在会话内完成，<strong>不依赖 <code>claude -p</code> 子进程</strong>。核心亮点：<strong>三级降级链</strong>保证主服务挂掉自动兜底全链路永不断流；<strong>firecrawl 成本护栏</strong>（Budget 计数 + reserve 预留 + HTTP 402 毒化）防止云额度空烧；<strong>质量×相关性打分选源</strong>对无品牌信号的别家上市公司年报 <code>-6</code> 强降权，避免深抓/抽取配额被无关年报吃光；<strong>智能截断</strong>（财务关键词优先）+ 文本清洗（去导航菜单行 + 去 PDF 版式碎片）；<strong>磁盘缓存</strong>按 <code>CACHE_VERSION+日期</code> 24h TTL 自动失效。<code>converter.py</code> 输出 Word 专业化：Word TOC 域缓存章节列表（打开即可见，F9 刷新页码）、<strong>自动中文序号</strong>（一、/（一）/1./（1））、表头跨页重复、差异化列宽、首行缩进 2 字符。报告模板 10 章节（行业定义/规模/政策/竞争/技术/商业模式/对标/风险/趋势），公司概况融入对标分析等章节不单独成章。传统 1-2 天人工调研压缩到 5-10 分钟。
+      </p>
+      <div class="project-summary-footer">
+        <div class="project-highlights">
+          <div class="project-highlight">⛓️ 三级降级采集链</div>
+          <div class="project-highlight">🛡️ 成本护栏 + 402 毒化</div>
+          <div class="project-highlight">📑 Word 专业化排版</div>
+        </div>
+        <div class="project-tech">
+          <span>Python 3.10+</span><span>python-docx</span><span>markitdown[pdf]</span>
+          <span>anysearch</span><span>crawl4ai</span><span>firecrawl</span>
+          <span>Markdown→DOCX</span>
+        </div>
+        <div class="project-summary-links">
+          <a class="project-link-outline" href="company-research/项目说明.md">项目说明 ↗</a>
+          <a class="project-link-outline" href="company-research/架构图.jpg">架构图 ↗</a>
+          <a class="project-link-outline" href="https://github.com/MaJun0517/company-research" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section reveal" id="internship">
+  <div class="container">
+    <div class="section-label">实习经历</div>
+    <h2 class="section-title">工作经历</h2>
+
+    <div class="internship-card">
+      <div class="internship-header">
+        <h3>广东海圆圆农业科技有限公司</h3>
+        <span class="internship-date">2026.05 – 至今</span>
+      </div>
+      <div class="internship-role">AI 全栈开发（实习）</div>
+      <ul class="internship-list">
+        <li>独立承担两套生产系统从 0 到 1 的全栈设计与交付，覆盖需求调研、开发、测试到现场部署全流程。</li>
+        <li>多次深入一线与投标专员、分拣工人沟通梳理真实流程，把痛点与操作习惯直接转译成产品设计，系统落地即用、培训成本极低。</li>
+      </ul>
+
+      <!-- 实习项目一 -->
+      <div class="intern-project">
+        <div class="intern-project-head">
+          <h4>📋 农产品供应链招投标信息采集分析系统</h4>
+          <div class="intern-project-links">
+            <a href="招投标采集分析系统演示单文件版.html">演示 →</a>
+            <a href="农产品供应链招投标信息采集分析系统/架构图.jpg">架构图 ↗</a>
+            <a href="农产品供应链招投标信息采集分析系统/项目说明.md">项目说明 ↗</a>
+          </div>
+        </div>
+        <p>面向食材配送、食堂承包、团餐、农产品贸易企业的政府采购商机平台，把企业「找标—评标—跟标」的人工流程做成「采集 → 治理 → 分析 → 投标管理 → AI 决策」自动化闭环（Vue 3 + TS / FastAPI / PostgreSQL + Redis + Celery）。</p>
+        <ul>
+          <li><strong>多链路采集引擎：</strong>覆盖中国政府采购网 / 广东公共资源交易平台 / AnySearch 三链路，适配器模式站点可插拔；水位增量采集 + 三级去重（URL 唯一 → 结构哈希 → 跨渠道相似度），列表窗口命中自动告警，从机制上防漏标。</li>
+          <li><strong>生产级 LangGraph Agent 工作台：</strong>封装 46 个业务工具并落地五级安全分级授权（read / auto_write / confirm_write / admin_confirm / 破坏性不注册），写操作走 interrupt() 审批、fail-closed；SSE 流式输出 + 中文感知上下文压缩；支持对话内生成 ECharts 图表、导出 Excel / PDF / Word 报告。</li>
+          <li><strong>投标全生命周期跟踪：</strong>一条公告 = 一个项目，9 态状态机 + 多责任人 + 事件时间线，自动关联澄清 / 中标 / 废标公告并推送提醒；11 个飞书工具集成 + 机器人私聊即对话。</li>
+          <li><strong class="res">成果：</strong>找标 / 跟标人力从 20 人等效降至 8 人、效率提升约 60%（测算年省约 115 万元）；后端 570+ 单元测试 + 8 个 Playwright E2E 场景，重要标采集频率达 2 小时级。</li>
+        </ul>
+      </div>
+
+      <!-- 实习项目二 -->
+      <div class="intern-project">
+        <div class="intern-project-head">
+          <h4>🏷️ 分拣打标签系统</h4>
+          <div class="intern-project-links">
+            <a href="WPF.html">演示 →</a>
+            <a href="分拣打标签系统/架构图.jpg">架构图 ↗</a>
+            <a href="分拣打标签系统/项目说明.md">项目说明 ↗</a>
+          </div>
+        </div>
+        <p>面向农产品分拣车间、对接企业 ERP 的 WPF 桌面系统（.NET / C#，net10.0-windows 与 .NET Framework 4.8 双目标一套代码），把「称重 → 打印标签 → 回传 ERP → 确认入库」做成实时、可追溯的自动化流水线，10 台生产设备稳定运行、日均处理订单行 2000+。</p>
+        <ul>
+          <li><strong>硬件抽象接入：</strong>IWeightReader / ILabelPrinter / IScanner 接口 + 工厂模式，接入串口 / BLE / HID 键盘楔入 / USB 四类电子秤与标签打印机；自研 ASCII 帧解析器一个入口兼容 3 种协议。</li>
+          <li><strong>打印与扫码追溯：</strong>17 字段可配字号模板 + 零依赖自绘 Code128 条码（Code B/C 自动切换 + mod103 校验），物理扫码枪免探测自动定位订单，形成「打印 → 扫码 → 反查」闭环。</li>
+          <li><strong>可靠性保障：</strong>ERP 回传失败自动入待重传队列、登录自动补传，杜绝「打印成功但 ERP 无数据」；DPAPI 加密本地存储；Inno Setup 安装包 + 双通道半自动更新（SHA256 校验）。</li>
+          <li><strong class="res">成果：</strong>录单岗位归零（原 2 人 × 4 小时/天集中录单），单票提速 10 秒，全年测算节省约 14.2 万元 ≈ 1.9 个全职岗位；每避免 1 笔错单减损约 330 元。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="internship-card">
+      <div class="internship-header">
+        <h3>Apple 授权专营店（三水万达店）</h3>
+        <span class="internship-date">2025.06 – 2025.09</span>
+      </div>
+      <div class="internship-role">店员销售</div>
+      <ul class="internship-list">
+        <li>用户洞察与销售转化：日均接待 5-15 名顾客，快速判断决策类型精准推荐，擅长转化犹豫型顾客，连带销售成功率约 20%，月均销售额 8,000-20,000 元。</li>
+        <li>运营分析与跨角色协作：每月汇总分析客流、销售及库存数据，发现节假日人手不足规律并推动增配优化；兼任技术支持，诊断软硬件问题并引导售后服务。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="skills">
+  <div class="container">
+    <div class="section-label">职业技能</div>
+    <h2 class="section-title">技术能力</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4>🤖 AI & 大模型</h4>
+        <div class="skill-tags">
+          <span>LangGraph</span><span>LangChain</span><span>RAG</span><span>MCP</span>
+          <span>Prompt Engineering</span><span>DeepSeek</span><span>pgvector</span>
+          <span>jieba</span><span>情感分析</span><span>NLP</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>💻 全栈开发</h4>
+        <div class="skill-tags">
+          <span>Python</span><span>Django / DRF</span><span>FastAPI</span><span>Vue 3 + TS</span>
+          <span>C# / WPF</span><span>RESTful API</span><span>SSE</span><span>asyncio 并发</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>🛠 工程化 & DevOps</h4>
+        <div class="skill-tags">
+          <span>Docker</span><span>Docker Compose</span><span>PostgreSQL</span><span>Redis</span>
+          <span>Celery</span><span>GitHub Actions</span><span>CI/CD</span>
+          <span>pytest</span><span>Playwright</span><span>Linux</span>
+        </div>
+      </div>
+      <div class="skill-card skill-card-cert">
+        <h4>📜 证书</h4>
+        <img class="cert-img" src="harmonyos-cert.jpg" alt="鸿蒙应用开发者基础认证" loading="lazy">
+        <p class="cert-label">鸿蒙应用开发者基础认证</p>
+        <p class="cert-sub">HarmonyOS Application Developer</p>
+      </div>
+      <div class="skill-card">
+        <h4>👥 通用素养</h4>
+        <div class="skill-tags">
+          <span>沟通协调</span><span>团队协作</span><span>飞书</span>
+          <span>Office</span><span>用户需求洞察</span><span>快速学习</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 马俊 · 广东东软学院 网络工程专业 · 2023 - 至今</p>
+    <div class="footer-links">
+      <a href="https://github.com/MaJun0517" target="_blank">GitHub</a>
+      <a href="mailto:743379974@qq.com">Email</a>
+      <a href="#about">返回顶部</a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">↑</button>
+
+<script>
+// ---- Back to Top ----
+const backToTop = document.getElementById('backToTop');
+
+function toggleBackToTop() {
+  if (window.scrollY > 400) {
+    backToTop.classList.add('visible');
+  } else {
+    backToTop.classList.remove('visible');
+  }
+}
+
+backToTop.addEventListener('click', function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', toggleBackToTop, { passive: true });
+
+// ---- Scroll Reveal ----
+const revealEls = document.querySelectorAll('.reveal');
+
+const revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+revealEls.forEach(function(el) { revealObserver.observe(el); });
+
+// ---- Active Nav Highlight ----
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = [];
+
+navLinks.forEach(function(link) {
+  var id = link.getAttribute('href');
+  if (id && id.startsWith('#')) {
+    var section = document.getElementById(id.substring(1));
+    if (section) sections.push({ link: link, section: section });
+  }
+});
+
+function updateActiveNav() {
+  var scrollPos = window.scrollY + 100;
+  var current = null;
+
+  sections.forEach(function(item) {
+    if (item.section.offsetTop <= scrollPos) {
+      current = item;
+    }
+  });
+
+  navLinks.forEach(function(link) { link.classList.remove('active'); });
+  if (current) current.link.classList.add('active');
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+// ---- Init ----
+toggleBackToTop();
+updateActiveNav();
+</script>
+
+</body>
+</html>
