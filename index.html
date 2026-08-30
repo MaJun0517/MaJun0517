@@ -77,8 +77,9 @@ body {
 }
 .hero h1 span { color: var(--accent); }
 .hero-subtitle {
-  font-size: 18px; color: var(--muted); margin-bottom: 24px; line-height: 1.6;
+  font-size: 18px; color: var(--muted); margin-bottom: 18px; line-height: 1.6;
 }
+.hero-subtitle strong { color: var(--fg); font-weight: 600; }
 .hero-contact {
   display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: var(--muted);
   margin-bottom: 20px;
@@ -86,6 +87,11 @@ body {
 .hero-contact span {
   display: flex; align-items: center; gap: 6px;
 }
+.hero-contact a {
+  color: var(--accent); text-decoration: none; font-weight: 500;
+  transition: opacity var(--transition);
+}
+.hero-contact a:hover { opacity: 0.75; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-avatar {
   width: 140px; height: 180px; border-radius: 16px; object-fit: cover;
@@ -103,10 +109,6 @@ body {
 
 /* ---- Section ---- */
 .section { padding: 40px 0; }
-.section-label {
-  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--accent); margin-bottom: 6px;
-}
 .section-title {
   font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 24px;
 }
@@ -249,7 +251,9 @@ body {
 .btn-dark {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 9px 18px; background: var(--fg); color: #fff;
-  border-radius: 8px; text-decoration: none; font-size: 13.5px; font-weight: 600;
+  border: 1.5px solid transparent; border-radius: 8px;
+  text-decoration: none; font-size: 13.5px; font-weight: 600; line-height: 1.5;
+  font-family: inherit; cursor: pointer;
   transition: opacity var(--transition);
 }
 .btn-dark:hover { opacity: 0.85; }
@@ -257,7 +261,8 @@ body {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 9px 18px; background: transparent; color: var(--fg);
   border: 1.5px solid var(--border); border-radius: 8px;
-  text-decoration: none; font-size: 13.5px; font-weight: 600;
+  text-decoration: none; font-size: 13.5px; font-weight: 600; line-height: 1.5;
+  font-family: inherit; cursor: pointer;
   transition: border-color var(--transition), background var(--transition);
 }
 .btn-ghost:hover { border-color: var(--fg); background: #f9fafb; }
@@ -287,6 +292,7 @@ body {
 /* ---- Skills ---- */
 .skills-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;
+  align-items: start;
 }
 .skill-card {
   background: var(--surface); border: 1px solid var(--border);
@@ -294,6 +300,7 @@ body {
   transition: box-shadow var(--transition), transform var(--transition);
 }
 .skill-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.skill-fill { align-self: stretch; }
 .skill-card h4 {
   font-size: 14px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em;
 }
@@ -308,7 +315,7 @@ body {
 .cert-img {
   width: 100%; max-width: 280px; border-radius: 8px;
   border: 1px solid var(--border); margin-bottom: 10px;
-  display: block; margin-left: auto; margin-right: auto;
+  display: block; margin-left: auto; margin-right: auto; cursor: zoom-in;
 }
 .cert-label {
   font-size: 13px; font-weight: 700; color: var(--fg);
@@ -316,6 +323,27 @@ body {
 .cert-sub {
   font-size: 11px; color: var(--muted); margin-top: 2px;
 }
+
+/* ---- Feishu Showcase ---- */
+.feishu-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+.feishu-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 12px;
+  padding: 12px; box-shadow: var(--shadow-sm); transition: box-shadow .2s, transform .2s;
+}
+.feishu-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.feishu-card h4 {
+  font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--fg);
+  display: flex; align-items: center; gap: 6px;
+}
+.feishu-img {
+  width: auto; height: auto; max-width: 100%; max-height: 220px;
+  border-radius: 8px; border: 1px solid var(--border);
+  margin: 0 auto 8px; display: block; cursor: zoom-in; background: #f9fafb;
+}
+.feishu-desc { font-size: 14px; line-height: 1.7; color: var(--muted); }
 
 /* ---- Education ---- */
 .edu-card {
@@ -363,6 +391,51 @@ body {
 .cert-info h4 { font-size: 14px; font-weight: 700; }
 .cert-info p { font-size: 12px; color: var(--muted); }
 
+/* ---- 架构图弹窗 ---- */
+.img-modal {
+  position: fixed; inset: 0; z-index: 200;
+  display: none; align-items: center; justify-content: center; padding: 24px;
+}
+.img-modal.open { display: flex; }
+.img-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(17, 24, 39, 0.55);
+}
+.img-modal-box {
+  position: relative; background: var(--surface);
+  border-radius: var(--radius); padding: 10px 10px 6px;
+  box-shadow: var(--shadow-lg);
+  max-width: min(720px, 92vw); max-height: 90vh;
+  display: flex; flex-direction: column; align-items: center;
+}
+.img-modal-stage {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  max-width: 100%; max-height: 84vh;
+  background: #fff; border-radius: 8px; padding: 8px;
+}
+.img-modal-img {
+  display: block; width: auto; height: auto;
+  max-width: calc(92vw - 36px); max-height: calc(84vh - 16px);
+  border-radius: 4px; object-fit: contain;
+  transition: width .15s ease;
+}
+.img-modal-bar {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 9px 4px 3px;
+}
+.img-modal-cap { font-size: 13px; color: var(--muted); text-align: center; }
+.img-modal-close {
+  position: absolute; top: -10px; right: -10px; z-index: 3;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--surface); color: var(--fg);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  font-size: 18px; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition);
+}
+.img-modal-close:hover { background: #f3f4f6; }
+
 /* ---- Back to Top ---- */
 .back-to-top {
   position: fixed; bottom: 28px; right: 28px; z-index: 90;
@@ -408,7 +481,6 @@ body {
   .hero-actions { justify-content: center; }
   .hero h1 { font-size: 36px; }
   .hero-avatar { width: 100px; height: 130px; }
-  .project-link-outline { margin-left: 0; margin-top: 10px; }
   .nav-links { gap: 16px; }
   .about-card { flex-direction: column; text-align: center; }
   .exp-card { padding: 20px 18px; }
@@ -439,6 +511,7 @@ body {
       <li><a href="#about">关于我</a></li>
       <li><a href="#experience">工作经历</a></li>
       <li><a href="#projects">精选项目</a></li>
+      <li><a href="#feishu">飞书集成</a></li>
       <li><a href="#skills">职业技能</a></li>
     </ul>
   </div>
@@ -450,17 +523,16 @@ body {
       <div class="hero-badge">AI Agent · 全栈开发</div>
       <h1>你好，我是<span>马俊</span></h1>
       <p class="hero-subtitle">
-        广东东软学院网络工程专业在读，专注于 AI Agent 与全栈开发。<br>
-        主导交付<strong style="color:var(--fg);">招投标采集分析系统</strong>与<strong style="color:var(--fg);">多平台热点聚合 AI 分析平台</strong>，擅长把 AI 能力产品化落地。
+        广东东软学院网络工程专业在读，专注 <strong>AI Agent 与全栈开发</strong>。<br>
+        我相信 <strong>AI 也是一种基础设施</strong>，所以比起把 AI 留在 Demo 与概念里，我更愿意把它铺进真实业务：以 <strong>Python</strong>（FastAPI / Django）为底座，用 <strong>LangGraph</strong> 编排 LLM Agent、<strong>Playwright</strong> 打通多链路数据采集，从一线调研到 Docker / Jenkins 工程化交付一路做到生产上线——深度参与的招投标系统把 20 人的找标工作压到 8 人，独立开发的热点平台让选题从翻榜几小时变成一次对话。
       </p>
       <div class="hero-contact">
         <span>📱 19122375639</span>
         <span>✉ 743379974@qq.com</span>
-        <span>🔗 github.com/MaJun0517</span>
+        <span>🔗 <a href="https://github.com/MaJun0517" target="_blank" rel="noopener">github.com/MaJun0517</a></span>
       </div>
       <div class="hero-actions">
         <a class="btn-primary" href="#experience">查看工作经历 ↓</a>
-        <a class="project-link-outline" href="https://github.com/MaJun0517" target="_blank" style="margin-left:0;">GitHub 主页 ↗</a>
       </div>
     </div>
     <img class="hero-avatar" src="MaJun.jpg" alt="个人照片" onerror="this.style.background='#dbeafe';this.style.display='flex';this.style.alignItems='center';this.style.justifyContent='center';this.style.fontSize='48px';this.textContent='👤'">
@@ -469,14 +541,15 @@ body {
 
 <section class="section reveal" id="about">
   <div class="container">
-    <div class="section-label">关于我</div>
     <h2 class="section-title">个人简介</h2>
     <div class="about-card">
       <div class="about-quote">"</div>
       <div class="about-body">
-        我是<strong>马俊</strong>，一名专注于<strong>AI 应用落地</strong>的全栈开发者。目前就读于广东东软学院网络工程专业，在<strong>广东海圆圆农业科技有限公司</strong>实习（AI 全栈开发），课余与实习时间全部投入在实际 AI 系统的构建与迭代中。<br><br>
-        <strong>AI 方向：</strong>熟练运用 <strong>LangChain / LangGraph</strong> 进行 LLM 应用编排，具备生产级 Agent 落地经验（StateGraph 多节点工具循环、PostgreSQL checkpoint 会话持久化、interrupt() 写操作审批中断/恢复、安全分级授权、SSE 流式输出）。掌握 <strong>RAG 检索增强生成</strong>与语义检索（pgvector 向量索引 + bge-small-zh 本地嵌入），了解 <strong>MCP 协议</strong>（Model Context Protocol）。具备 <strong>NLP 实战经验</strong>：jieba 中文分词、TF-IDF 关键词提取、词典情感分析（215 词情感词典从 146 词迭代扩展）。<br><br>
-        <strong>工程能力：</strong>以 <strong>Python 生态</strong>（Django DRF / FastAPI）为后端基石，<strong>Vue 3 + TypeScript</strong> 为前端表达，<strong>C# / WPF</strong> 桌面开发覆盖 Win7–Win10 生产环境，辅以 Docker 容器化部署与 GitHub Actions CI/CD。实习期间主导交付<strong>招投标采集分析平台</strong>（配套分拣打标签桌面系统），课余独立开发<strong>多平台热点聚合与 AI 分析平台</strong>，积累了多链路爬虫治理、生产级 Agent 落地、硬件接入、570+ 单元测试工程化保障等实战经验。擅长从零构建完整闭环——从数据采集、AI 分析到飞书/Word 多端分发，在每个环节追求工程化的可靠性。
+        我是<strong>马俊</strong>，一名以 <strong>AI 也是一种基础设施</strong> 为理念的全栈开发者——将 AI 嵌入真实业务运行，而非停留在演示与概念层面。目前就读于广东东软学院网络工程专业，在<strong>广东海圆圆农业科技有限公司</strong>担任 AI 全栈开发实习生，负责企业级 AI 系统的构建与迭代，并在课余独立完成多项 AI 应用从 0 到 1 的落地。<br><br>
+        <strong>AI 方向：</strong>用 <strong>LangChain / LangGraph</strong> 完成过生产级 Agent 的完整落地——StateGraph 多节点工具循环、PostgreSQL checkpoint 会话持久化、interrupt() 写操作审批中断与恢复、SSE 流式输出；也做过 RAG 检索增强（pgvector 向量索引 + bge-small-zh 本地嵌入）与 MCP 协议接入；日常与 <strong>Claude Code</strong>、<strong>Codex</strong>、<strong>Cursor</strong>、<strong>Gemini</strong> 等 Agent 工具协作。工程实践遵循一条原则：<strong>AI 的能力边界要用工程来约束</strong>——写操作必须审批、fail-closed，AI 能做的事越多，越要守得住底线。<br><br>
+        <strong>协作与落地：</strong>扎到一线——与投标专员、分拣工人、业务负责人当面梳理真实流程，把业务语言翻译成需求与交互，再独立完成开发、现场部署与培训；此前还在 Apple 授权专营店做过 3 个月销售，日均接待 5-15 名顾客，练就了把复杂产品讲清楚的能力；也熟悉企业 ERP 的业务侧使用（销售 / 采购 / 库存数据流），能与业务方在同一套数据语言里对齐需求。交付的系统直连飞书融入团队既有工作流，落地即用、培训成本低——让工具适应人，而不是让人适应工具。<br><br>
+        <strong>工程能力：</strong>以 Python（Django DRF / FastAPI）为后端、Vue 3 + TypeScript 为前端、C# / WPF 覆盖 Win7–Win10 生产机，辅以 Docker 容器化与 Jenkins / GitHub Actions CI/CD。实习期间深度参与交付<strong>招投标采集分析平台</strong>（配套分拣打标签桌面系统，与 ERP 双向对接），课余独立开发<strong>多平台热点聚合与 AI 分析平台</strong>、<strong>企业调研报告生成工具</strong>。可靠性是底线而非加分项——570+ 单元测试、Playwright E2E、Prometheus 告警、失败重试与补偿队列，让系统在没人盯着的时候也值得信任。<br><br>
+        <strong>数据采集：</strong>熟悉多链路爬虫的系统化治理——适配器模式站点可插拔、水位增量采集、三级去重（URL 唯一 → 结构哈希 → 跨渠道相似度）、反爬退避与会话预热；覆盖政府采购网、公共资源交易平台与微博、百度、抖音、B站等 12+ 数据源，并会 Playwright 截获 XHR、Crawl4AI / RSSHub 多后端降级兜底。爬虫不是对抗，而是读懂规则、按规矩来——快之外，更要稳、要干净。
       </div>
     </div>
   </div>
@@ -484,7 +557,6 @@ body {
 
 <section class="section reveal" id="experience">
   <div class="container">
-    <div class="section-label">工作经历</div>
     <h2 class="section-title">工作经历 · 交付项目</h2>
 
     <div class="exp-card">
@@ -518,21 +590,17 @@ body {
         <div class="pf-row">
           <div class="pf-label">项目概述</div>
           <div class="pf-content">
-            <p>面向<strong>食材配送、食堂承包、团餐、农产品贸易</strong>企业的政府采购商机平台。把企业"找标—评标—跟标—复盘"这条高度依赖人工的经营流程，做成「采集 → 治理 → 分析 → 投标管理 → AI 决策」的自动化闭环，覆盖从发现商机到报价决策、流程推进、经验沉淀的完整链路。</p>
+            <p>面向<strong>食材配送、食堂承包、团餐、农产品贸易</strong>企业的政府采购商机平台，把"找标—评标—跟标—复盘"这条高度依赖人工的经营流程，做成「采集 → 治理 → 分析 → 投标管理 → AI 决策」的自动化闭环。</p>
           </div>
         </div>
         <div class="pf-row">
           <div class="pf-label">业务痛点</div>
           <div class="pf-content">
             <ul class="pain-list">
-              <li><b>找标 · 漏标：</b>公告分散在中国政府采购网、地方公共资源交易平台等多个渠道，栏目列表又有滚动窗口，人工刷站频率跟不上，中间的公告说漏就漏。</li>
-              <li><b>找标 · 筛选难：</b>每天新增公告成百上千，多数与本企业资质、经营范围、配送半径无关，靠人眼逐条翻，高价值食堂标被淹没在噪音里。</li>
-              <li><b>评标 · 报价无依据：</b>报价是评分核心，却缺少历史中标价、竞争对手报价与预算区间做参考，只能凭经验拍板，报高失标、报低亏本。</li>
-              <li><b>评标 · 响应窗口短：</b>从公告发布到投标截止常不足 20 天，还要同步准备资质、报价、配送方案与保证金，判断慢一步就来不及。</li>
-              <li><b>跟标 · 跟踪混乱：</b>一条标要经历澄清、更正、开标、中标结果、废标等关联公告，散落在各人的 Excel 与群消息里，交接即丢失。</li>
-              <li><b>跟标 · 节点易错过：</b>保证金缴纳、答疑提交、投标文件递交、开标多个时间点靠人记，错过一个即前功尽弃。</li>
-              <li><b>复盘 · 数据不准：</b>预算单位（元 / 万元 / 大写金额）混乱、公告时间与服务器时间时区口径不一、跨渠道重复公告，导致紧迫度、今日新增、中标率等统计经常算错。</li>
-              <li><b>复盘 · 经验无沉淀：</b>失标原因、竞争对手情报没有结构化沉淀，第二年同类标重复踩坑。</li>
+              <li><b>找标 · 漏标：</b>公告分散在多个渠道且栏目列表有滚动窗口，人工刷站频率跟不上，中间公告说漏就漏。</li>
+              <li><b>评标 · 报价无依据：</b>报价是评分核心，却缺历史中标价与对手报价，只能凭经验拍板。</li>
+              <li><b>跟标 · 跟踪混乱：</b>澄清、更正、开标、废标等关联公告散在各人 Excel 与群消息里，交接容易丢失。</li>
+              <li><b>复盘 · 数据不准：</b>金额单位、时区、跨渠道重复公告口径不一，紧迫度与中标率统计失真。</li>
             </ul>
           </div>
         </div>
@@ -544,49 +612,28 @@ body {
                 <span class="fnum">01</span>
                 <div>
                   <h5>多链路采集引擎</h5>
-                  <p>覆盖中国政府采购网、广东公共资源交易平台、AnySearch 三链路；适配器模式（Protocol + 注册表）实现站点可插拔，列表抓满上限时自动降级检索补抓；水位增量采集 + 三级去重（URL 唯一 → 结构哈希 → 跨渠道相似度）；连接复用、检索会话预热、地区轮转游标持久化、±20% 抖动退避，重要标 2 小时级采集、列表窗口命中自动告警。</p>
+                  <p>覆盖中国政府采购网、广东公共资源交易平台、AnySearch 三链路，适配器模式站点可插拔；水位增量采集 + 三级去重（URL 唯一 → 结构哈希 → 跨渠道相似度），重要标 2 小时级采集、列表窗口命中告警，从机制上防漏标。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">02</span>
                 <div>
                   <h5>数据质量闭环</h5>
-                  <p>字段抽取走正则 + AI 双路：12 组预算正则、中文大写金额解析、元→万元换算、三道脏数据防御（占位值 / 误标单位）；正则抽不到的字段由 DeepSeek 从正文补抽，<code>ai_enriched_at</code> 防重复；入库前统一 XSS 清洗（保留布局）、双时区口径统一；配合误报 / 漏报校准反馈回路。</p>
+                  <p>12 组预算正则 + 中文大写金额解析 + 元/万元换算三道脏数据防御，正则抽不到的字段交由 LLM 从正文补抽；入库前 XSS 清洗、双时区口径统一，配合误报 / 漏报校准反馈回路。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">03</span>
                 <div>
-                  <h5>可视化看板</h5>
-                  <p>统计卡片 + 趋势 / 分布 / 预算 / 紧迫度图表，双击钻取；Redis 缓存 5 分钟、采集入库后自动失效，大字段延迟加载保障查询性能。</p>
+                  <h5>投标全生命周期跟踪</h5>
+                  <p>一条公告 = 一个项目，9 态状态机（评估→准备→提交→开标→中标 / 履约 / 未中标 / 放弃 / 流标）+ 多责任人 + 事件时间线；自动关联澄清 / 中标 / 废标公告并推状态提醒。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">04</span>
                 <div>
-                  <h5>投标全生命周期跟踪</h5>
-                  <p>一条公告 = 一个项目，9 态状态机（评估→准备→提交→开标→中标 / 履约 / 未中标 / 放弃 / 流标）；多责任人 + 事件时间线；自动关联澄清 / 中标 / 废标公告并推状态 + 铃铛提示。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">05</span>
-                <div>
                   <h5>AI 工作台（核心亮点）</h5>
-                  <p>基于 LangGraph + DeepSeek 构建生产级 Agent：StateGraph 多节点工具循环 + PostgreSQL checkpoint 持久化会话与审批中断 / 恢复；封装 46 个业务工具并落地五级安全分级授权（read / auto_write / confirm_write / admin_confirm / 破坏性不注册），写操作走 <code>interrupt()</code> 审批、fail-closed；SSE 流式输出、渐进式工具暴露、中文感知上下文压缩；支持对话内生成 ECharts 图表、导出 Excel / PDF / Word 报告。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">06</span>
-                <div>
-                  <h5>飞书集成</h5>
-                  <p>11 个飞书工具（多维表格 / 云文档 / 日历 / 任务 / 消息）+ 机器人私聊即对话，写操作沿用同一套审批闭环，打通 AI 与团队协作。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">07</span>
-                <div>
-                  <h5>工程化与测试</h5>
-                  <p>570+ 单元测试 + Playwright E2E，含 AI 工具签名对齐、安全分级专项测试；Prometheus 监控指标、成本告警与采集滞后告警 Webhook。</p>
+                  <p>LangGraph + LLM 生产级 Agent，封装 46 个业务工具并落地五级安全分级授权，写操作走 <code>interrupt()</code> 审批、fail-closed；SSE 流式输出、对话内生成 ECharts、导出 Excel / PDF / Word；11 个飞书工具打通团队协作。</p>
                 </div>
               </li>
             </ul>
@@ -596,9 +643,9 @@ body {
           <div class="pf-label">技术架构</div>
           <div class="pf-content">
             <div class="tech-tags">
-              <span>Vue 3</span><span>TypeScript</span><span>Element Plus</span><span>ECharts</span><span>Pinia</span>
-              <span>FastAPI</span><span>SQLAlchemy</span><span>Pydantic</span><span>PostgreSQL</span><span>Alembic</span>
-              <span>Redis</span><span>Celery</span><span>LangGraph</span><span>DeepSeek</span><span>pytest</span><span>Playwright</span>
+              <span>Vue 3 + TypeScript</span><span>FastAPI</span><span>PostgreSQL</span><span>Redis</span>
+              <span>Celery</span><span>LangGraph</span><span>SSE</span>
+              <span>Playwright</span><span>飞书 OpenAPI</span>
             </div>
           </div>
         </div>
@@ -606,8 +653,8 @@ body {
           <div class="pf-label">量化成果</div>
           <div class="pf-content">
             <ul class="res-list">
-              <li>找标 / 跟标人力从 <b>20 人等效降至 8 人</b>（人力投入下降约 60%，人均产出提升至约 2.5 倍），按释放人力测算年省约 115 万元</li>
-              <li>系统上线后累计自动采集 <b>240+ 条公告</b>，重要标采集频率由人工日更提升至 2 小时级</li>
+              <li>找标 / 跟标人力从 <b>20 人等效降至 8 人</b>（人力投入下降约 60%，人均产出提升至约 2.5 倍）</li>
+              <li>系统上线后累计自动采集 <b>2400+ 条公告</b>，重要标采集频率由人工日更提升至 <b>2 小时级</b></li>
               <li>后端 <b>570+ 单元测试</b>、前端 <b>8 个 E2E 场景</b></li>
             </ul>
           </div>
@@ -623,8 +670,7 @@ body {
       </div>
       <div class="project-foot">
         <a class="btn-dark" href="招投标采集分析系统演示单文件版.html">查看演示 →</a>
-        <a class="btn-ghost" href="农产品供应链招投标信息采集分析系统/项目说明.md">项目说明 ↗</a>
-        <a class="btn-ghost" href="农产品供应链招投标信息采集分析系统/架构图.jpg">架构图 ↗</a>
+        <button type="button" class="btn-ghost" data-img="农产品供应链招投标信息采集分析系统/架构图.jpg" data-cap="农产品供应链招投标信息采集分析系统 · 架构图">查看架构图</button>
       </div>
     </article>
 
@@ -647,17 +693,16 @@ body {
         <div class="pf-row">
           <div class="pf-label">项目概述</div>
           <div class="pf-content">
-            <p>面向农产品（果蔬等）分拣车间的 WPF 桌面系统，把"称重 → 打印标签 → 回传 ERP → 确认入库"这条原本高度依赖人工的流程，做成实时、可追溯、与 ERP 强一致的自动化流水线。系统以 <strong>.NET (C#) + WPF</strong> 开发，采用 <code>net10.0-windows</code> / <code>.NET Framework 4.8</code> 双目标编译，一套代码同时覆盖 Win10 与 Win7 生产机；日均处理订单行 2000+，10 台生产设备稳定运行。</p>
+            <p>面向农产品（果蔬等）分拣车间的 WPF 桌面系统，把"称重 → 打印标签 → 回传 ERP → 确认入库"做成实时、可追溯、与 ERP 强一致的自动化流水线；<strong>.NET (C#)</strong> 双目标编译（<code>net10.0-windows</code> / <code>net48</code>）一套代码覆盖 Win10 与 Win7，日均处理订单行 2000+，10+ 台设备稳定运行。</p>
           </div>
         </div>
         <div class="pf-row">
           <div class="pf-label">业务痛点</div>
           <div class="pf-content">
             <ul class="pain-list">
-              <li><b>效率低：</b>称重与录单割裂，称重靠人、录单靠专人（原需 2 人 × 4 小时/天），一批完成后才能补录，时效差。</li>
-              <li><b>易出错：</b>手工抄录 + 二次录入，且单位常混用（销售按公斤、采购按斤），曾出现"采购斤单回传 kg 记成实际一半"的账面错误。</li>
-              <li><b>难追溯：</b>标签无统一编码，出库后无法反查是哪一单、哪一批。</li>
-              <li><b>设备旧、硬件杂：</b>10 台生产机含大量锁死系统的 Win7（无法升级 .NET 10），电子秤又有串口、蓝牙、USB 键盘等多种型号，难以统一接入。</li>
+              <li><b>效率低：</b>称重与录单割裂，原需 2 人 × 4 小时/天集中补录，一批完成才能录，时效差。</li>
+              <li><b>易出错：</b>手工抄录 + 二次录入，且单位常混用（销售按公斤、采购按斤），曾出现斤单回传 kg 记成一半的账面错误。</li>
+              <li><b>设备杂：</b>多台生产机多为锁死系统的 Win7（无法升级 .NET），电子秤有串口 / 蓝牙 / USB 键盘多型号，难以统一接入。</li>
             </ul>
           </div>
         </div>
@@ -668,43 +713,29 @@ body {
               <li>
                 <span class="fnum">01</span>
                 <div>
-                  <h5>称重采集</h5>
-                  <p>接入四类电子秤，自研 ASCII 帧解析器一个入口兼容 3 种协议（首衡 / TWI / 通用数字帧）；支持手动输入、逐袋累重，重量优先级"手动 &gt; 累重 &gt; 秤读数"。</p>
+                  <h5>多型号硬件接入</h5>
+                  <p><code>IWeightReader</code> / <code>ILabelPrinter</code> / <code>IScanner</code> 接口 + 工厂模式，接入串口 / BLE / HID 键盘楔入 / USB 四类设备；自研 ASCII 帧解析器一个入口兼容 3 种协议，触屏设置页免硬编码型号。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">02</span>
                 <div>
-                  <h5>打印标签</h5>
-                  <p>预览确认 → 驱动打印；17 个字段每字段可自定义字号；自绘 Code128 条形码（Code B/C 自动切换 + mod103 校验），标签扫码即可定位原订单；支持已分拣订单补打。</p>
+                  <h5>称重 → 打印闭环</h5>
+                  <p>逐袋累重、手动输入与秤读数三级优先级；预览确认后驱动打印，17 字段可配字号 + 零依赖自绘 Code128（Code B/C 自动切换 + mod103 校验），标签扫码即可定位原订单。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">03</span>
                 <div>
-                  <h5>扫码追溯</h5>
-                  <p>物理扫码枪（键盘楔入、免探测）自动输入定位订单，与标签条码形成"打印 → 扫码 → 反查"闭环。</p>
+                  <h5>ERP 回传与追溯</h5>
+                  <p>称重回传 + 分拣确认 + 采购确认入库，销售 / 采购双数据源切换；失败自动入待重传队列、登录自动补传，杜绝"打印成功但 ERP 无数据"。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">04</span>
                 <div>
-                  <h5>ERP 回传</h5>
-                  <p>称重回传 + 分拣确认 + 采购确认入库，销售 / 采购双数据源切换；失败自动入待重传队列、登录自动补传，杜绝"打印成功但 ERP 无数据"。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">05</span>
-                <div>
-                  <h5>硬件配置</h5>
-                  <p>四标签触屏设置页，探测并选择设备（免硬编码型号），串口参数 / 打印模板 / 小数位 / 明暗主题均可配。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">06</span>
-                <div>
                   <h5>可靠性与部署</h5>
-                  <p>打印前离线 / 暂停队列预检防"假成功"；DPAPI 加密本地存储（会话 / 凭据 / 待重传队列 / 设备历史）；Inno Setup 安装包 + 双通道半自动更新（版本比对 + SHA256 校验）。</p>
+                  <p>打印前离线 / 暂停队列预检防"假成功"；DPAPI 加密本地存储；Inno Setup 安装包 + 双通道半自动更新（版本比对 + SHA256 校验）。</p>
                 </div>
               </li>
             </ul>
@@ -715,8 +746,8 @@ body {
           <div class="pf-content">
             <div class="tech-tags">
               <span>WPF</span><span>.NET (C#)</span><span>net10.0-windows</span><span>.NET Framework 4.8</span>
-              <span>XPS 驱动打印</span><span>自绘 Code128</span><span>串口 / BLE / HID / USB</span>
-              <span>DPAPI 加密</span><span>Inno Setup</span><span>ERP 对接</span>
+              <span>XPS 打印</span><span>自绘 Code128</span><span>串口 / BLE / HID / USB</span>
+              <span>DPAPI</span><span>ERP 对接</span>
             </div>
           </div>
         </div>
@@ -725,8 +756,7 @@ body {
           <div class="pf-content">
             <ul class="res-list">
               <li><b>录单岗位归零：</b>原 2 人 × 4 小时/天集中录单 → 实时自动回传，全年省人力约 7.2 万元</li>
-              <li><b>单票提速 10 秒：</b>日均 2000 单，每天省约 5.6 人时</li>
-              <li><b>全年合计测算节省约 14.2 万元</b>（提效 12.2 万 + 防损 2.0 万），折算每天 14.8 人时 ≈ 1.9 个全职岗位</li>
+              <li><b>单票提速 10 秒</b>（日均 2000 单，每天省约 5.6 人时），全年合计测算节省约 14.2 万元 ≈ 1.9 个全职岗位</li>
               <li><b>错单防损：</b>自动采集 + 多单位换算 + 回传补偿，每避免 1 笔错单减损约 330 元</li>
             </ul>
           </div>
@@ -735,16 +765,14 @@ body {
           <div class="pf-label">个人职责</div>
           <div class="pf-content">
             <ul class="duty-list">
-              <li>独立完成系统从 0 到 1 的设计与开发，覆盖需求调研、开发、测试到现场部署全流程。</li>
-              <li>多次深入一线与工人沟通，把操作习惯直接转译成交互设计（免探测扫码、累重动作按钮、触屏大按钮），系统落地即用、培训成本极低。</li>
+              <li>独立完成从 0 到 1 的设计与开发，覆盖需求调研、开发、测试到现场部署全流程；深入一线把工人操作习惯直接转译成交互设计（免探测扫码、累重动作按钮、触屏大按钮）。</li>
             </ul>
           </div>
         </div>
       </div>
       <div class="project-foot">
         <a class="btn-dark" href="WPF.html">查看演示 →</a>
-        <a class="btn-ghost" href="分拣打标签系统/项目说明.md">项目说明 ↗</a>
-        <a class="btn-ghost" href="分拣打标签系统/架构图.jpg">架构图 ↗</a>
+        <button type="button" class="btn-ghost" data-img="分拣打标签系统/架构图.jpg" data-cap="分拣打标签系统 · 架构图">查看架构图</button>
       </div>
     </article>
 
@@ -755,7 +783,7 @@ body {
       </div>
       <div class="exp-role">店员销售</div>
       <ul class="internship-list">
-        <li>用户洞察与销售转化：日均接待 5-15 名顾客，快速判断决策类型精准推荐，擅长转化犹豫型顾客，连带销售成功率约 20%，月均销售额 8,000-20,000 元。</li>
+        <li>用户洞察与销售转化：日均接待 5-15 名顾客，快速判断决策类型精准推荐，能转化犹豫型顾客，连带销售成功率约 20%，月均销售额 20,000-80,000 元。</li>
         <li>运营分析与跨角色协作：每月汇总分析客流、销售及库存数据，发现节假日人手不足规律并推动增配优化；兼任技术支持，诊断软硬件问题并引导售后服务。</li>
       </ul>
     </div>
@@ -764,7 +792,6 @@ body {
 
 <section class="section reveal" id="projects">
   <div class="container">
-    <div class="section-label">项目经历</div>
     <h2 class="section-title">独立项目</h2>
 
     <!-- 项目 03 -->
@@ -786,7 +813,7 @@ body {
         <div class="pf-row">
           <div class="pf-label">项目概述</div>
           <div class="pf-content">
-            <p>面向<strong>网络内容创作者</strong>的热点情报系统。把创作者每天"盯热榜—翻新闻—找选题—做分析"这条高度依赖人工的流程，做成「采集 → 加工 → 分析 → 检索 → 推送」的自动化闭环，解决"多平台信息碎片化、原始榜单无分析、缺乏创作辅助"三大痛点。</p>
+            <p>面向<strong>网络内容创作者</strong>的热点情报系统，把"盯热榜—翻新闻—找选题—做分析"做成「采集 → 加工 → 分析 → 检索 → 推送」的自动化闭环。</p>
           </div>
         </div>
         <div class="pf-row">
@@ -794,7 +821,7 @@ body {
           <div class="pf-content">
             <ul class="pain-list">
               <li><b>信息碎片：</b>热榜分散在多个平台，官方新闻与热点话题割裂，来回切换耗时。</li>
-              <li><b>只有榜单没有分析：</b>原始榜单只是标题列表，创作者需要自己判断趋势、情感、关键词和上升话题。</li>
+              <li><b>只有榜单没有分析：</b>原始榜单只是标题列表，趋势、情感、关键词和上升话题都要自己判断。</li>
               <li><b>缺乏创作闭环：</b>除了看，还要能对话追问、找相似选题、导出报告、推送到飞书协作。</li>
             </ul>
           </div>
@@ -807,42 +834,28 @@ body {
                 <span class="fnum">01</span>
                 <div>
                   <h5>多后端采集引擎</h5>
-                  <p>覆盖微博、百度、抖音、B站四个热榜平台 + 央视、凤凰网、联合早报、财新四个官方新闻源；「后端池 + 链式路由」架构，7 类后端统一归一化输出，按数据源配置逐级降级，新增源零改代码；抖音 / 百度等 SPA 页用 Playwright intercept 截获 XHR（请求自带签名，天然绕过反爬，实测单源 51 条）；配限速抖动、指数退避、登录会话持久化、真实 UA 等治理。</p>
+                  <p>微博 / 百度 / 抖音 / B站四个热榜 + 央视 / 凤凰网 / 联合早报 / 财新四个新闻源；「后端池 + 链式路由」7 类后端统一归一化输出，按数据源逐级降级、新增源零改代码；SPA 页用 Playwright 截获 XHR，请求自带签名天然绕过反爬。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">02</span>
                 <div>
-                  <h5>双模块数据体系</h5>
-                  <p>按平台分类分流为热榜模块（写 HotArticle，按热度排序）与新闻模块（写 NewsItem，按重要度排序），两套模型 / 索引 / 向量语义隔离；upsert + 下榜删除 + 热度快照（HeatSnapshot），支持上升话题识别。</p>
+                  <h5>成本递进的新闻漏斗</h5>
+                  <p>7 级流水线（采集→硬过滤→去重→借热度→聚类→AI 精筛→入库），前四层纯免费规则（jieba 关键词、Jaccard 聚类、借热度打分），LLM 仅对候选集（cap 40）单次调用，无 API Key 时全链路规则兜底。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">03</span>
                 <div>
-                  <h5>成本递进的新闻漏斗</h5>
-                  <p>7 级流水线（采集→硬过滤→去重→借热度→聚类→AI 精筛→入库），前四层纯免费规则（jieba 关键词、Jaccard 聚类、借热度打分），LLM 仅对候选集（cap 40）单次调用，无 API Key 时全链路规则兜底，自动产出每日要闻。</p>
+                  <h5>对话式 AI 工作台</h5>
+                  <p>LangGraph + LLM 生产级 Agent，14 个业务工具 + 风险分级（read / confirm_write），写操作走 <code>interrupt()</code> 审批、fail-closed；token 级 SSE 流式输出、停止生成、中文感知上下文压缩控制成本。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">04</span>
                 <div>
-                  <h5>对话式 AI 工作台（核心亮点）</h5>
-                  <p>基于 LangGraph + DeepSeek 构建生产级 Agent：StateGraph 多节点工具循环 + PostgreSQL checkpoint 持久化会话与审批中断 / 恢复；封装 14 个业务工具并落地风险分级（read / confirm_write），写操作走 <code>interrupt()</code> 审批、fail-closed；token 级 SSE 流式输出、停止生成、中文感知上下文压缩；支持对话内生成 ECharts 图表、导出 Excel 报告。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">05</span>
-                <div>
-                  <h5>语义检索</h5>
-                  <p>pgvector HNSW 索引 + 本地 bge-small-zh 模型（512 维），采集流程自动增量嵌入，支持「找相似选题 / 历史事件复盘」。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">06</span>
-                <div>
-                  <h5>飞书集成</h5>
-                  <p>直连 OpenAPI 推送 Card 2.0 交互卡片（热点速报 + 每日要闻）+ 机器人私聊对话中继，打通 AI 与团队协作。</p>
+                  <h5>语义检索与推送</h5>
+                  <p>pgvector HNSW 索引 + 本地 bge-small-zh（512 维），采集流程自动增量嵌入，支持「找相似选题 / 历史事件复盘」；飞书 Card 2.0 交互卡片 + 机器人私聊对话中继。</p>
                 </div>
               </li>
             </ul>
@@ -852,10 +865,9 @@ body {
           <div class="pf-label">技术架构</div>
           <div class="pf-content">
             <div class="tech-tags">
-              <span>Vue 3</span><span>Vite</span><span>Pinia</span><span>Vue Router</span>
-              <span>Django 6</span><span>DRF</span><span>PostgreSQL 18</span><span>pgvector</span>
-              <span>LangGraph checkpoint-postgres</span><span>Playwright</span><span>Crawl4AI</span><span>RSSHub</span>
-              <span>AnySearch</span><span>DeepSeek</span><span>sentence-transformers</span><span>bge-small-zh-v1.5</span><span>jieba</span>
+              <span>Vue 3 + Vite</span><span>Django 6</span><span>DRF</span><span>PostgreSQL 18</span>
+              <span>pgvector</span><span>LangGraph</span><span>Playwright</span>
+              <span>Crawl4AI</span><span>RSSHub</span><span>bge-small-zh</span><span>飞书 OpenAPI</span>
             </div>
           </div>
         </div>
@@ -863,9 +875,8 @@ body {
           <div class="pf-label">量化成果</div>
           <div class="pf-content">
             <ul class="res-list">
-              <li>聚合 <b>597 条实时数据</b>（251 条热榜 + 346 条新闻），跨平台热度总量级超亿</li>
-              <li><b>24 个采集源健康度全绿</b>，抖音单源 Playwright 实测抓取 51 条</li>
-              <li>语义检索<b>向量覆盖率 100%</b>，「找相似选题」功能真实可用</li>
+              <li>聚合 <b>597 条实时数据</b>（251 条热榜 + 346 条新闻），24 个采集源健康度全绿</li>
+              <li>语义检索<b>向量覆盖率 100%</b>，「找相似选题」真实可用</li>
               <li>语义检索 / AI 分析 / 采集均具备<b>优雅降级</b>，无 API Key 或后端失败不中断主流程</li>
             </ul>
           </div>
@@ -874,15 +885,14 @@ body {
           <div class="pf-label">个人职责</div>
           <div class="pf-content">
             <ul class="duty-list">
-              <li>独立完成系统从 0 到 1 的全栈设计与开发，四个里程碑（采集层 → AI 工作台后端 → 前端重构 → 资讯平台化）全部交付。</li>
+              <li>独立完成从 0 到 1 的全栈设计与开发，四个里程碑（采集层 → AI 工作台后端 → 前端重构 → 资讯平台化）逐一交付。</li>
             </ul>
           </div>
         </div>
       </div>
       <div class="project-foot">
         <a class="btn-dark" href="每日热点平台-单文件版.html">查看演示 →</a>
-        <a class="btn-ghost" href="多平台热点聚合与 AI 分析平台/项目说明.md">项目说明 ↗</a>
-        <a class="btn-ghost" href="多平台热点聚合与 AI 分析平台/架构图.jpg">架构图 ↗</a>
+        <button type="button" class="btn-ghost" data-img="多平台热点聚合与 AI 分析平台/架构图.jpg" data-cap="多平台热点聚合与 AI 分析平台 · 架构图">查看架构图</button>
         <a class="btn-ghost" href="https://github.com/MaJun0517/hot-topics" target="_blank">GitHub ↗</a>
       </div>
     </article>
@@ -894,7 +904,7 @@ body {
         <div class="project-icon icon-doc">🏢</div>
         <div class="project-titles">
           <h3>Company Research <span class="ptag self">独立开发</span></h3>
-          <p class="project-tagline">输入公司名（可选行业词），一键生成行业调研报告（公司概况融入行业章节），Word 文档直接可用。</p>
+          <p class="project-tagline">输入公司名（可选行业词），自动生成行业调研报告（公司概况融入行业章节），Word 文档直接可用。</p>
           <div class="project-meta">
             <span>👤 个人项目</span>
             <span>🧑‍💻 独立开发</span>
@@ -906,16 +916,16 @@ body {
         <div class="pf-row">
           <div class="pf-label">项目概述</div>
           <div class="pf-content">
-            <p>面向<strong>投资研究、行业分析、企业 BD 尽调</strong>场景的"自动化调研报告"生产底座。把"搜资料 → 读资料 → 写报告 → 排版成 Word"这条高度依赖人工的研究流程，做成「规范查询 → 多源降级采集 → 结构化抽取 → 双产物组装 → 会话内 LLM 撰写 → Word 专业化排版」的自动化流水线，输出单份可交付的 <code>.docx</code> 行业调研报告。报告模板将公司概况（经营表现、市场地位、商业模式、风险）揉进对应行业章节，不单独成章，最终交付一份 10 章节、有数据有来源的行业研究报告。</p>
+            <p>面向<strong>投资研究、行业分析、企业 BD 尽调</strong>场景的自动化调研报告生产底座，把"搜资料 → 读资料 → 写报告 → 排版成 Word"做成一条自动化流水线，输出单份可交付的 <code>.docx</code> 10 章节行业研究报告。</p>
           </div>
         </div>
         <div class="pf-row">
           <div class="pf-label">业务痛点</div>
           <div class="pf-content">
             <ul class="pain-list">
-              <li><b>资料分散、采集成本高：</b>分析师在搜索结果页逐条点开→读→复制，年报 PDF 几十页靠肉眼筛核心数据，人工耗时占全流程 60%+。</li>
-              <li><b>来源不可靠、易断网 / 超时 / 被反爬：</b>搜索 / 抓取 / 解析三段链路任一节点挂掉都要手工补；多源数据口径不齐，要在多份资料间"对齐事实"。</li>
-              <li><b>报告排版耗时、专业度受限：</b>md 转 docx 的二级标题序号、表格列宽、目录页码、页眉页脚、表头跨页重复等细节手工难以标准化。</li>
+              <li><b>资料分散、采集成本高：</b>在搜索结果页逐条点开→读→复制，年报 PDF 靠肉眼筛核心数据，人工耗时占全流程 60%+。</li>
+              <li><b>来源不可靠、易断链：</b>搜索 / 抓取 / 解析任一节点挂掉都要手工补，多源口径不齐需人工对齐事实。</li>
+              <li><b>排版耗时：</b>md 转 docx 的序号、列宽、目录页码、表头跨页重复等细节手工难以标准化。</li>
             </ul>
           </div>
         </div>
@@ -926,71 +936,29 @@ body {
               <li>
                 <span class="fnum">01</span>
                 <div>
-                  <h5>章节级查询规范（spec.py）</h5>
-                  <p>把行业调研抽象成 9 个章节（行业定义 / 规模 / 政策 / 竞争 / 技术 / 商业模式 / 对标 / 风险 / 趋势），每章节 1-4 条查询模板，用 <code>{company}</code> / <code>{year}</code> / <code>{industry}</code> 占位符运行时替换；<code>vertical</code> 标记垂直域自动挑选 sub_domain，无 industry 时纯行业查询自动跳过。</p>
+                  <h5>三级降级采集链</h5>
+                  <p>搜索 anysearch 并行（章节级并发）→ firecrawl 兜底；抓取 crawl4ai 批量（domcontentloaded + 20s 超时）→ firecrawl → anysearch；PDF 用 markitdown 本地解析；抽取支持 firecrawl json schema 与本地 crawl4ai <code>/llm</code>。任一服务挂掉自动降级，全链路永不断流。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">02</span>
                 <div>
-                  <h5>三级降级采集链</h5>
-                  <p>每段都"主 + 备 + 末位"三级降级，任一服务挂掉 / 欠费都自动往下走，全链路永不断流：搜索 anysearch <code>batch_search</code> 并行（≤5/批，章节级并发）→ firecrawl；抓取 crawl4ai <code>/crawl</code> 批量（domcontentloaded + 20s 超时）→ firecrawl → anysearch extract；PDF 解析 markitdown 本地 → firecrawl；抽取 firecrawl json format ｜ crawl4ai <code>/llm</code> 本地 DeepSeek。</p>
+                  <h5>成本护栏 + 打分选源</h5>
+                  <p><code>Budget</code> 线程安全计数封顶并为"结构化抽取"预留 <code>reserve</code> 配额，遇 HTTP 402 立即毒化本次运行；按质量×相关性打分，无品牌信号的别家上市公司年报 <b>-6</b> 强降权，避免深抓配额被无关年报吃光。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">03</span>
                 <div>
-                  <h5>firecrawl 成本护栏 + 402 毒化</h5>
-                  <p>按量计费因此加两层保护：<code>Budget</code> 类线程安全计数，总调用封顶（默认 12），并为最高价值的"结构化抽取"阶段预留 <code>reserve</code> 配额；一旦遇 HTTP 402（余额耗尽）立即把本次运行"毒化"，后续所有 firecrawl 调用短路抛错，不再空耗。</p>
+                  <h5>双产物 + 缓存失效</h5>
+                  <p><code>facts.md</code> 兼容旧版，<code>facts.json</code> 附 <code>stats</code> 与 <code>timing</code> 供撰写阶段 LLM 判断可信度；磁盘缓存按 <code>CACHE_VERSION + 查询 + 日期</code> 24h TTL，版本变更即整体失效。</p>
                 </div>
               </li>
               <li>
                 <span class="fnum">04</span>
                 <div>
-                  <h5>质量×相关性打分选源</h5>
-                  <p>深抓名额（默认 8 URL）与抽取配额都稀缺：<code>score_source</code> 对财务机构域加分、视频社交减分，无目标品牌信号但疑似别家上市公司年报的 URL 直接 <b>-6</b> 强降权；每章节配额封顶 + 全局质量×相关性排序取前 N。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">05</span>
-                <div>
-                  <h5>智能截断 + 文本清洗</h5>
-                  <p><code>smart_truncate</code> 保留开头 + 财务关键词命中最多的段落，不做一刀切；<code>strip_nav_links</code> 去站内导航菜单行；<code>clean_pdf_fragments</code> 去 PPT 转 PDF 的乱序单字碎片行。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">06</span>
-                <div>
-                  <h5>品牌词提取</h5>
-                  <p>靠地域前缀表（30+ 城市）+ 公司后缀表循环剥离，从"北京杉数智能科技有限公司"剥出"杉数"；提取结果用于来源相关性判断和"该公司有无公开财务数据"信号。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">07</span>
-                <div>
-                  <h5>磁盘缓存自动失效</h5>
-                  <p>key = <code>sha1(CACHE_VERSION + 查询 + 当天日期)</code>，24h TTL；<code>CACHE_VERSION</code>（当前 v4）在清洗 / 截断策略变更时递增让旧缓存整体失效。分搜索 / 抓取 / 抽取三类缓存。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">08</span>
-                <div>
-                  <h5>配置优先级链</h5>
-                  <p>环境变量 &gt; 项目 .env &gt; anysearch skill .env &gt; 默认值，且空值不覆盖已配置项；所有密钥只从 .env 读，代码零硬编码。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">09</span>
-                <div>
-                  <h5>双产物 + 来源统计</h5>
-                  <p><code>facts.md</code> 与旧版兼容，<code>facts.json</code> 附带 <code>stats</code>（各 provider 调用次数、缓存命中）与 <code>timing</code>（各阶段耗时），给撰写阶段的 LLM 判断数据可信度用。</p>
-                </div>
-              </li>
-              <li>
-                <span class="fnum">10</span>
-                <div>
-                  <h5>converter Word 专业化</h5>
-                  <p>不只是 md 塞进 docx：TOC 域缓存章节列表（打开即可见，F9 刷新页码）、自动中文序号（一、/（一）/1./（1）且智能剥掉手写序号）、表头跨页重复、按内容长度启发式分配列宽（每列 ≥2cm）、首行缩进 2 字符、页眉底部深蓝细线 + 页码从正文重排。</p>
+                  <h5>Word 专业化排版</h5>
+                  <p>不只是 md 塞进 docx：TOC 域缓存章节列表（F9 刷新页码）、自动中文序号（一、/（一）/1./（1））、表头跨页重复、启发式列宽（每列 ≥2cm）、首行缩进 2 字符、页眉细线 + 页码从正文重排。</p>
                 </div>
               </li>
             </ul>
@@ -1000,8 +968,8 @@ body {
           <div class="pf-label">技术架构</div>
           <div class="pf-content">
             <div class="tech-tags">
-              <span>Python 3.10+</span><span>urllib</span><span>python-docx</span><span>markitdown[pdf]</span>
-              <span>anysearch (JSON-RPC)</span><span>crawl4ai</span><span>firecrawl</span><span>Docker</span>
+              <span>Python 3.10+</span><span>python-docx</span><span>markitdown[pdf]</span>
+              <span>anysearch</span><span>crawl4ai</span><span>firecrawl</span><span>Docker</span>
             </div>
           </div>
         </div>
@@ -1009,10 +977,9 @@ body {
           <div class="pf-label">量化成果</div>
           <div class="pf-content">
             <ul class="res-list">
-              <li>报告生成耗时从分析师手工 <b>1-2 天压缩到 5-10 分钟</b>（9 章节采集 + 撰写 + 排版一次完成）</li>
-              <li><b>多源降级链永不断流：</b>即使 firecrawl 完全停用（<code>ENABLE_FIRECRAWL=false</code>）全链路仍可跑通</li>
-              <li><b>深抓速度提升两个数量级：</b>crawl4ai 加 domcontentloaded + 20s 超时后，8 页深抓从 12+ 分钟降到 1 分钟内</li>
-              <li><b>报告排版 0 人工：</b>自动中文序号、TOC 域、表格列宽、页眉页码全部自动化，输出可直接交付</li>
+              <li>报告生成从分析师手工 <b>1-2 天压缩到 5-10 分钟</b>（9 章节采集 + 撰写 + 排版一次完成）</li>
+              <li><b>深抓提速两个数量级：</b>8 页深抓从 12+ 分钟降到 1 分钟内</li>
+              <li><b>报告排版 0 人工</b>，输出可直接交付；即使 firecrawl 停用全链路仍可跑通</li>
             </ul>
           </div>
         </div>
@@ -1020,17 +987,14 @@ body {
           <div class="pf-label">个人职责</div>
           <div class="pf-content">
             <ul class="duty-list">
-              <li><strong>架构层面：</strong>4 层职责划分（入口 / 采集 / 转换 / 模板）+ 13 个采集模块的单一职责边界。</li>
-              <li><strong>工程层面：</strong>firecrawl 成本护栏、三级降级链、质量×相关性打分选源、智能截断与文本清洗、品牌词提取、缓存自动失效。</li>
-              <li><strong>体验层面：</strong>converter 的 Word 专业化排版、CLI 公共 API 与旧版兼容。</li>
-              <li><strong>流程层面：</strong>报告生成完全在会话内完成（不依赖 <code>claude -p</code> 子进程），并把"采集失败返回 None / 让上层走 WebSearch 兜底"的契约写进 pipeline。</li>
+              <li>独立完成从架构设计到落地实现：4 层职责划分 + 13 个采集模块单一职责边界；成本护栏、三级降级链、打分选源、智能截断与文本清洗、品牌词提取、缓存失效。</li>
+              <li>报告生成在会话内完成（不依赖 <code>claude -p</code> 子进程），并把"采集失败返回 None / 让上层走 WebSearch 兜底"的契约写进 pipeline。</li>
             </ul>
           </div>
         </div>
       </div>
       <div class="project-foot">
-        <a class="btn-dark" href="company-research/项目说明.md">项目说明 ↗</a>
-        <a class="btn-ghost" href="company-research/架构图.jpg">架构图 ↗</a>
+        <button type="button" class="btn-ghost" data-img="company-research/架构图.jpg" data-cap="Company Research · 架构图">查看架构图</button>
         <a class="btn-ghost" href="https://github.com/MaJun0517/company-research" target="_blank">GitHub ↗</a>
       </div>
     </article>
@@ -1038,46 +1002,69 @@ body {
   </div>
 </section>
 
+<section class="section reveal" id="feishu">
+  <div class="container">
+    <h2 class="section-title">飞书集成</h2>
+    <div class="feishu-grid">
+      <div class="feishu-card">
+        <h4>🤖 投标 AI 助手</h4>
+        <img class="feishu-img" src="飞书素材/投标助手.png" alt="投标 AI 助手飞书对话" loading="lazy" data-img="飞书素材/投标助手.png" data-cap="招投标系统 · 飞书机器人对话">
+        <p class="feishu-desc">对接<strong>招投标采集分析系统</strong>，业务专员在飞书私聊直接跟 AI 对话查询预算、地区、紧迫度，写操作沿用同一套审批闭环。</p>
+      </div>
+      <div class="feishu-card">
+        <h4>🔥 每日热点速报</h4>
+        <img class="feishu-img" src="飞书素材/每日热点.png" alt="每日热点速报卡片" loading="lazy" data-img="飞书素材/每日热点.png" data-cap="多平台热点聚合 · 飞书 Card 2.0 推送">
+        <p class="feishu-desc">对接<strong>多平台热点聚合与 AI 分析平台</strong>，全平台热度 Top10 + AI 趋势分析推送给订阅群（Card 2.0 交互卡片）。</p>
+      </div>
+      <div class="feishu-card">
+        <h4>📰 每日要闻</h4>
+        <img class="feishu-img" src="飞书素材/每日要闻.png" alt="每日要闻卡片" loading="lazy" data-img="飞书素材/每日要闻.png" data-cap="热点平台新闻漏斗 · 飞书权威媒体聚合">
+        <p class="feishu-desc">对接热点平台的 7 级新闻漏斗，凤凰网 / 央视 / 联合早报 / 财新四源 AI 精筛后每日定时推送。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section reveal" id="skills">
   <div class="container">
-    <div class="section-label">职业技能</div>
     <h2 class="section-title">技术能力</h2>
     <div class="skills-grid">
       <div class="skill-card">
         <h4>🤖 AI & 大模型</h4>
         <div class="skill-tags">
-          <span>LangGraph</span><span>LangChain</span><span>RAG</span><span>MCP</span>
-          <span>Prompt Engineering</span><span>DeepSeek</span><span>pgvector</span>
-          <span>jieba</span><span>情感分析</span><span>NLP</span>
+          <span>LangGraph</span><span>RAG</span><span>MCP</span>
+          <span>pgvector</span><span>NLP</span><span>Prompt Engineering</span>
+          <span>Claude Code</span><span>Codex</span><span>Cursor</span><span>Gemini</span>
         </div>
       </div>
-      <div class="skill-card">
+      <div class="skill-card skill-fill">
         <h4>💻 全栈开发</h4>
         <div class="skill-tags">
-          <span>Python</span><span>Django / DRF</span><span>FastAPI</span><span>Vue 3 + TS</span>
-          <span>C# / WPF</span><span>RESTful API</span><span>SSE</span><span>asyncio 并发</span>
+          <span>Python</span><span>Django / DRF</span><span>FastAPI</span>
+          <span>Java</span><span>Spring Boot</span><span>Vue 3 + TS</span>
+          <span>C# / WPF</span><span>ERP 对接</span>
         </div>
       </div>
       <div class="skill-card">
-        <h4>🛠 工程化 & DevOps</h4>
+        <h4>🛠 工程化 & 架构</h4>
         <div class="skill-tags">
-          <span>Docker</span><span>Docker Compose</span><span>PostgreSQL</span><span>Redis</span>
-          <span>Celery</span><span>GitHub Actions</span><span>CI/CD</span>
-          <span>pytest</span><span>Playwright</span><span>Linux</span>
+          <span>Docker</span><span>PostgreSQL · Redis · Celery</span><span>CI/CD</span><span>Linux</span>
+          <span>渐进式工具披露</span><span>多级降级链</span><span>安全分级授权</span><span>可观测性</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>👥 综合素养</h4>
+        <div class="skill-tags">
+          <span>沟通协调</span><span>团队协作</span><span>用户需求洞察</span><span>快速学习</span>
+          <span>飞书（多维表格 · 云文档）</span><span>Office（Word · Excel · PPT）</span>
+          <span>WPS</span><span>ECharts 可视化</span>
         </div>
       </div>
       <div class="skill-card skill-card-cert">
         <h4>📜 证书</h4>
-        <img class="cert-img" src="harmonyos-cert.jpg" alt="鸿蒙应用开发者基础认证" loading="lazy">
+        <img class="cert-img" src="harmonyos-cert.jpg" alt="鸿蒙应用开发者基础认证" loading="lazy" data-img="harmonyos-cert.jpg" data-cap="鸿蒙应用开发者基础认证">
         <p class="cert-label">鸿蒙应用开发者基础认证</p>
         <p class="cert-sub">HarmonyOS Application Developer</p>
-      </div>
-      <div class="skill-card">
-        <h4>👥 通用素养</h4>
-        <div class="skill-tags">
-          <span>沟通协调</span><span>团队协作</span><span>飞书</span>
-          <span>Office</span><span>用户需求洞察</span><span>快速学习</span>
-        </div>
       </div>
     </div>
   </div>
@@ -1095,6 +1082,19 @@ body {
 </footer>
 
 <button class="back-to-top" id="backToTop" aria-label="返回顶部" title="返回顶部">↑</button>
+
+<div class="img-modal" id="imgModal" role="dialog" aria-modal="true" aria-label="图片预览" aria-hidden="true">
+  <div class="img-modal-backdrop" data-close></div>
+  <div class="img-modal-box" id="imgModalBox">
+    <div class="img-modal-stage" id="imgModalStage">
+      <button class="img-modal-close" type="button" data-close aria-label="关闭">×</button>
+      <img class="img-modal-img" id="imgModalImg" src="" alt="图片">
+    </div>
+    <div class="img-modal-bar">
+      <span class="img-modal-cap" id="imgModalCap"></span>
+    </div>
+  </div>
+</div>
 
 <script>
 // ---- Back to Top ----
@@ -1155,6 +1155,92 @@ function updateActiveNav() {
 }
 
 window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+// ---- 架构图弹窗 ----
+const imgModal = document.getElementById('imgModal');
+const imgModalImg = document.getElementById('imgModalImg');
+const imgModalCap = document.getElementById('imgModalCap');
+
+function openImgModal(src, cap) {
+  imgModalImg.src = src;
+  imgModalImg.alt = cap || '图片';
+  imgModalCap.textContent = cap || '';
+  imgScale = 1;
+  imgModalBox.style.maxWidth = '';
+  captureImgBase();
+  setImgScale(1);
+  imgModalImg.onload = function() {
+    captureImgBase();
+    setImgScale(1);
+  };
+  imgModal.classList.add('open');
+  imgModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImgModal() {
+  imgModal.classList.remove('open');
+  imgModal.setAttribute('aria-hidden', 'true');
+  imgModalImg.src = '';
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('[data-img]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    openImgModal(btn.getAttribute('data-img'), btn.getAttribute('data-cap'));
+  });
+});
+
+imgModal.querySelectorAll('[data-close]').forEach(function(el) {
+  el.addEventListener('click', closeImgModal);
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeImgModal();
+});
+
+// ---- 图片缩放（滚轮，白底面板跟随） ----
+const imgModalBox = document.getElementById('imgModalBox');
+const imgModalStage = document.getElementById('imgModalStage');
+let imgScale = 1;
+let imgBaseW = 0;
+let imgBaseH = 0;
+const IMG_SCALE_MIN = 0.5;
+const IMG_SCALE_MAX = 3;
+
+function captureImgBase() {
+  var w = imgModalImg.getBoundingClientRect().width;
+  if (w > 0) {
+    imgBaseW = w;
+    imgBaseH = imgModalImg.getBoundingClientRect().height;
+  }
+}
+
+function setImgScale(s) {
+  imgScale = Math.min(IMG_SCALE_MAX, Math.max(IMG_SCALE_MIN, s));
+  if (imgBaseW > 0) {
+    var maxW = window.innerWidth * 0.92 - 36;
+    var maxH = window.innerHeight * 0.84 - 16;
+    var w = imgBaseW * imgScale;
+    var h = imgBaseH * imgScale;
+    if (w > maxW) { var k = maxW / w; w *= k; h *= k; }
+    if (h > maxH) { var k2 = maxH / h; w *= k2; h *= k2; }
+    imgModalImg.style.width = Math.round(w) + 'px';
+    imgModalImg.style.height = Math.round(h) + 'px';
+    imgModalBox.style.maxWidth = (w > 660) ? '92vw' : '';
+  }
+}
+function resetImgScale() {
+  imgScale = 1;
+  imgModalImg.style.width = '';
+  imgModalImg.style.height = '';
+  imgModalBox.style.maxWidth = '';
+}
+
+imgModalStage.addEventListener('wheel', function(e) {
+  e.preventDefault();
+  setImgScale(imgScale + (e.deltaY < 0 ? 0.1 : -0.1));
+}, { passive: false });
 
 // ---- Init ----
 toggleBackToTop();
